@@ -1,0 +1,15 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <input type="button" id="sendNotifications" value="Broadcast messages to other part of the UI" />
+    <input type="button" id="triggerAction" value="Trigger actions into the server" />
+    <input type="button" id="registerToGroup1" value="Join group 1" />
+</div>
+<script src="~/lib/jquery/jquery.min.js"></script>
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/chat.js"></script>
