@@ -66,7 +66,7 @@ public class Startup
 1) Create a Hub class with no content
 
 ```csharp
-public class ServerToClientHub : Hub
+public class NotificationHub : Hub
 {
 
 }
@@ -89,7 +89,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
     //...
     app.UseSignalR(routes =>
     {
-        routes.MapHub<ServerToClientHub>("/serverToClientHub"); // define an explicit route for the UI client
+        routes.MapHub<NotificationHub>("/notificationHub"); // define an explicit route for the UI client
     });
 }
 ```
@@ -99,9 +99,9 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 ```csharp
  public class BackgroundMessageSender : BackgroundService
     {
-        private IHubContext<ServerToClientHub> _hubCtx;
+        private IHubContext<NotificationHub> _hubCtx;
 
-        public BackgroundMessageSender(IHubContext<ServerToClientHub> hubCtx)
+        public BackgroundMessageSender(IHubContext<NotificationHub> hubCtx)
         {
             _hubCtx = hubCtx;
         }
@@ -131,10 +131,10 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 Add this code to chat.js:
 
 ```javascript
-var serverToClientHub = new signalR.HubConnectionBuilder().withUrl("/serverToClientHub").build();
+var notificationHub = new signalR.HubConnectionBuilder().withUrl("/notificationHub").build();
 
-serverToClientHub.start();
-serverToClientHub.on("ReceivedMessageFromServer", function (data) {
+notificationHub.start();
+notificationHub.on("ReceivedMessageFromServer", function (data) {
     console.log(data);
 });
 
@@ -157,11 +157,11 @@ serverToClientHub.on("ReceivedMessageFromServer", function (data) {
 2) Add this code to chat.js:
 
 ```javascript
-var serverToClientHub = new signalR.HubConnectionBuilder().withUrl("/serverToClientHub").build();
-serverToClientHub.start();
+var notificationHub = new signalR.HubConnectionBuilder().withUrl("/notificationHub").build();
+notificationHub.start();
 
 document.getElementById("triggerAction").addEventListener("click", function (event) {
-    serverToClientHub.invoke("TriggerAction", "exec").catch(function (err) {
+    notificationHub.invoke("TriggerAction", "exec").catch(function (err) {
         return console.error(err.toString());
     });
 });
@@ -170,7 +170,7 @@ document.getElementById("triggerAction").addEventListener("click", function (eve
 ### Server setup
 
 ```csharp
-public class ServerToClientHub : Hub
+public class NotificationHub : Hub
 {
   public Task TriggerAction(string cmd)
   {
