@@ -26,15 +26,15 @@ document.getElementById("triggerAction").addEventListener("click", function (eve
     });
 });
 
-var serverToClientHub = new signalR.HubConnectionBuilder().withUrl("/serverToClientHub").build();
+var notificationHub = new signalR.HubConnectionBuilder().withUrl("/notificationHub").build();
 
-serverToClientHub.start();
-serverToClientHub.on("ReceivedMessageFromServer", function (data) {
+notificationHub.start();
+notificationHub.on("ReceivedMessageFromServer", function (data) {
     console.log(data);
 });
 
 document.getElementById("registerToGroup1").addEventListener("click", function (event) {
-    serverToClientHub.invoke("JoinGroup", "Grp1").catch(function (err) {
+    notificationHub.invoke("JoinGroup", "Grp1").catch(function (err) {
         return console.error(err.toString());
     });
 });

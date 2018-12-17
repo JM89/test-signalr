@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SignalR_Testing.Hubs
 {
-    public class ServerToClientHub : Hub
+    public class NotificationHub : Hub
     {
         public async Task JoinGroup(string group)
         {

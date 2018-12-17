@@ -12,9 +12,9 @@ namespace SignalR_Testing
     public class BackgroundMessageSender : BackgroundService
     {
         private IHubContext<ChatHub> _chatHubCtx;
-        private IHubContext<ServerToClientHub> _hubCtx;
+        private IHubContext<NotificationHub> _hubCtx;
 
-        public BackgroundMessageSender(IHubContext<ChatHub> chatHubCtx, IHubContext<ServerToClientHub> hubCtx)
+        public BackgroundMessageSender(IHubContext<ChatHub> chatHubCtx, IHubContext<NotificationHub> hubCtx)
         {
             _chatHubCtx = chatHubCtx;
             _hubCtx = hubCtx;

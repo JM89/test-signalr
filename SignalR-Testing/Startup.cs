@@ -59,7 +59,7 @@ namespace SignalR_Testing
             app.UseSignalR(routes =>
             {
                 routes.MapHub<ChatHub>("/chatHub");
-                routes.MapHub<ServerToClientHub>("/serverToClientHub");
+                routes.MapHub<NotificationHub>("/notificationHub");
             });
             app.UseMvc();
         }
